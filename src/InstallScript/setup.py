@@ -13,8 +13,8 @@ def find_stipper_path(unity_path):
     else:
         # OSX (/Applications/Unity/Unity.app/Contents/Frameworks/Tools/UnusedByteCodeStripper2)
         print "nt"    
-        base_path = unity_path or r"/Applications/Unity"
-        stripper_path = os.path.join(base_path, r"Unity.app/Contents/Frameworks/Tools/UnusedByteCodeStripper2")
+        base_path = unity_path or r"/Applications/Unity/Unity.app"
+        stripper_path = os.path.join(base_path, r"Contents/Frameworks/Tools/UnusedByteCodeStripper2")
 
     if os.path.exists(stripper_path):
         print "Path:", stripper_path
