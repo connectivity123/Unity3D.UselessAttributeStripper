@@ -33,6 +33,8 @@ def install(unity_path):
     if not target_path:
         return 1
 
+    current_path = os.path.dirname(os.path.realpath(__file__))
+
     if exists(target_path, "UnusedBytecodeStripper2.org.exe"):
         print "ERROR: UselessAttributeStripper is already installed."
         return 1
@@ -41,7 +43,7 @@ def install(unity_path):
                 os.path.join(target_path, "UnusedBytecodeStripper2.org.exe"))
     shutil.move(os.path.join(target_path, "UnusedBytecodeStripper2.exe.mdb"),
                 os.path.join(target_path, "UnusedBytecodeStripper2.org.exe.mdb"))
-    shutil.copy("UselessAttributeStripper.exe",
+    shutil.copy(os.path.join(current_path, "UselessAttributeStripper.exe"),
                 os.path.join(target_path, "UnusedBytecodeStripper2.exe"))
     if os.name == "posix":
         os.chmod(os.path.join(target_path, "UnusedBytecodeStripper2.exe"), 0755)
