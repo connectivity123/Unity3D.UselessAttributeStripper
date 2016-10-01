@@ -24,18 +24,22 @@ def find_stipper_path(unity_path):
         return None
 
 
+def exists(target_path, file):
+    return os.path.exists(os.path.join(target_path, file))
+
+
 def install(unity_path):
     target_path = find_stipper_path(unity_path)
     if not target_path:
         return 1
 
-    if os.path.exists(os.path.join(target_path, "UnusedBytecodeStripper2.org.exe")):
+    if exists(target_path, "UnusedBytecodeStripper2.org.exe"):
         print "ERROR: UselessAttributeStripper is already installed."
         return 1
 
-    shutil.move(os.path.join(target_path, "UnusedBytecodeStripper2.exe"), 
+    shutil.move(os.path.join(target_path, "UnusedBytecodeStripper2.exe"),
                 os.path.join(target_path, "UnusedBytecodeStripper2.org.exe"))
-    shutil.move(os.path.join(target_path, "UnusedBytecodeStripper2.exe.mdb"), 
+    shutil.move(os.path.join(target_path, "UnusedBytecodeStripper2.exe.mdb"),
                 os.path.join(target_path, "UnusedBytecodeStripper2.org.exe.mdb"))
     shutil.copy("UselessAttributeStripper.exe",
                 os.path.join(target_path, "UnusedBytecodeStripper2.exe"))
@@ -51,14 +55,16 @@ def uninstall(unity_path):
     if not target_path:
         return 1
 
-    if os.path.exists(os.path.join(target_path, "UnusedBytecodeStripper2.org.exe")) == False:
+    if not exists(target_path, "UnusedBytecodeStripper2.org.exe"):
         print "ERROR: UselessAttributeStripper is not installed."
         return 1
 
-    os.remove(os.path.join(target_path, "UnusedBytecodeStripper2.exe"))
-    shutil.move(os.path.join(target_path, "UnusedBytecodeStripper2.org.exe"), 
+    if exists(target_path, "UnusedBytecodeStripper2.exe"):
+        os.remove(os.path.join(target_path, "UnusedBytecodeStripper2.exe"))
+
+    shutil.move(os.path.join(target_path, "UnusedBytecodeStripper2.org.exe"),
                 os.path.join(target_path, "UnusedBytecodeStripper2.exe"))
-    shutil.move(os.path.join(target_path, "UnusedBytecodeStripper2.org.exe.mdb"), 
+    shutil.move(os.path.join(target_path, "UnusedBytecodeStripper2.org.exe.mdb"),
                 os.path.join(target_path, "UnusedBytecodeStripper2.exe.mdb"))
 
     print "done!"
@@ -70,7 +76,7 @@ def check(unity_path):
     if not target_path:
         return 1
 
-    if os.path.exists(os.path.join(target_path, "UnusedBytecodeStripper2.org.exe")):
+    if exists(target_path, "UnusedBytecodeStripper2.org.exe"):
         print "UselessAttributeStripper is installed."
     else:
         print "UselessAttributeStripper is not installed."
